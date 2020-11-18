@@ -1,0 +1,43 @@
+//рекурсивний спосіб
+#include <iostream>
+#include <iomanip>
+#include <time.h>
+using namespace std;
+void Create(int* a, const int size, const int Low, const int High, int i)
+{
+	a[i] = Low + rand() % (High - Low + 1);
+	if (i < size - 1)
+		Create(a, size, Low, High, i + 1);
+}
+void Print(int* a, const int size, int i)
+{
+	cout << "a[" << setw(2) << i << " ] = " << setw(4) << a[i] << endl;
+	if (i < size - 1)
+		Print(a, size, i + 1);
+	else
+		cout << endl;
+}
+int Sum(int* a, int SIZE, int sum, int i)
+{
+	if (i < SIZE)
+	{
+		if (a[i] > 0 && a[i] % 2 == 0)
+			sum += a[i];
+
+		Sum(a, SIZE, sum, ++i);
+	}
+	else return sum;
+}
+
+int main()
+{
+	srand((unsigned)time(NULL)); // ініціалізація генератора випадкових чисел
+	const int n = 25;
+	int a[n];
+	int Low = -5;
+	int High = 12;
+	Create(a, n, Low, High, 0);
+	Print(a, n, 0);
+	cout << "S = " << Sum(a, n, 0,0) << endl;
+	return 0;
+}
